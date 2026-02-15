@@ -1,4 +1,6 @@
-# Topic 01: Exercises - How Computers Work
+*{
+
+} Topic 01: Exercises - How Computers Work
 
 Complete these exercises to reinforce your understanding.
 
