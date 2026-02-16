@@ -5,9 +5,16 @@
 By the end of this topic, you will:
 1. Understand what a computer actually is
 2. Know the 4 core components and their roles
-3. Understand the fetch-decode-execute cycle
-4. Know what makes computers "fast" or "slow"
-5. Understand why this matters for DevOps
+3. Understand measurement units (GHz, MB, ns)
+4. Know what CPU cores are
+5. Understand RAM vs ROM vs SSD vs HDD
+6. Master the fetch-decode-execute cycle
+7. Know what makes computers "fast" or "slow" (Bottleneck Analysis)
+8. Understand why this matters for DevOps
+
+---
+
+# SECTION A: FUNDAMENTALS
 
 ---
 
@@ -69,7 +76,7 @@ Every computer has exactly 4 essential components:
 **What it does:** Executes instructions. The "brain" that does all calculations.
 
 **Key characteristics:**
-- Measured in GHz (billions of cycles per second)
+- Measured in GHz (billions of operations/second)
 - Has "cores" (multiple processing units)
 - Can only do ONE thing at a time per core (but very fast)
 
@@ -98,7 +105,7 @@ Every computer has exactly 4 essential components:
 
 ### Component 3: Storage (SSD/HDD)
 
-**What it does:** Permanent storage for data and programs.
+**What it does:** Permanent data storage
 
 **Key characteristics:**
 - NON-VOLATILE - keeps data when power is off
@@ -126,9 +133,261 @@ Every computer has exactly 4 essential components:
 
 ---
 
-## Part 3: How the CPU Actually Works
+# SECTION B: MEASUREMENT UNITS (Understanding GHz, MB, ns)
 
-### The Fetch-Decode-Execute Cycle
+---
+
+## Part 3: Understanding Measurement Units
+
+### The Unit Scale (MEMORIZE THIS!)
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                    MEASUREMENT UNITS                            │
+├────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   SMALLER ◄─────────────────────────────────────────► LARGER   │
+│                                                                 │
+│   nano    micro    milli    base    Kilo    Mega    Giga       │
+│    (n)     (μ)      (m)      (1)     (K)     (M)     (G)       │
+│                                                                 │
+│   10⁻⁹    10⁻⁶    10⁻³      1      10³     10⁶     10⁹        │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+```
+
+### Quick Reference Table
+
+| Prefix | Symbol | Value | Common Usage |
+|--------|--------|-------|--------------|
+| **Giga** | G | 1,000,000,000 (billion) | CPU speed: 3 GHz = 3 billion cycles/sec |
+| **Mega** | M | 1,000,000 (million) | Old CPUs: 500 MHz, File size: 50 MB |
+| **Kilo** | K | 1,000 (thousand) | File size: 1 KB = 1,000 bytes |
+| **Base** | - | 1 | 1 Hz = 1 cycle/sec |
+| **milli** | m | 0.001 (1/1000) | Kubernetes CPU: 500m = 0.5 cores |
+| **micro** | μ | 0.000001 | SSD access: 50 μs |
+| **nano** | n | 0.000000001 | RAM access: 100 ns |
+
+### What GHz Actually Means
+
+**Hz (Hertz)** = cycles per second (how many times something happens in 1 second)
+
+**GHz (Gigahertz)** = BILLION cycles per second
+
+```
+A 3 GHz CPU:
+┌─────────────────────────────────────────┐
+│                                         │
+│   In 1 SECOND, the CPU does:           │
+│                                         │
+│   3,000,000,000 cycles                  │
+│   (3 billion operations!)               │
+│                                         │
+│   Each cycle takes: ~0.33 nanoseconds   │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+### DevOps Application: Kubernetes CPU Units
+
+In Kubernetes, CPU is measured in "millicores":
+- `1000m` = 1 full CPU core
+- `500m` = 0.5 CPU core (half a core)
+- `250m` = 0.25 CPU core (quarter of a core)
+
+```yaml
+resources:
+  limits:
+    cpu: "500m"      # 0.5 cores (half a CPU)
+    memory: "512Mi"  # 512 Mebibytes of RAM
+```
+
+---
+
+# SECTION C: CPU CORES (Understanding Parallel Processing)
+
+---
+
+## Part 4: What Are CPU Cores?
+
+### Single Core vs Multi-Core
+
+A **core** is an independent processing unit inside the CPU. Think of it as a worker.
+
+```
+SINGLE CORE CPU (Old)                    MULTI-CORE CPU (Modern)
+┌──────────────────────┐                ┌──────────────────────┐
+│        CPU           │                │        CPU           │
+│  ┌──────────────┐    │                │  ┌────┐ ┌────┐       │
+│  │              │    │                │  │Core│ │Core│       │
+│  │    Core 1    │    │                │  │ 1  │ │ 2  │       │
+│  │              │    │                │  └────┘ └────┘       │
+│  │  (1 worker)  │    │                │  ┌────┐ ┌────┐       │
+│  │              │    │                │  │Core│ │Core│       │
+│  └──────────────┘    │                │  │ 3  │ │ 4  │       │
+│                      │                │  └────┘ └────┘       │
+│  Can do 1 task       │                │  Can do 4 tasks      │
+│  at a time           │                │  at same time!       │
+└──────────────────────┘                └──────────────────────┘
+```
+
+### Kitchen Analogy
+
+```
+1 CORE = 1 Chef                         4 CORES = 4 Chefs
+┌─────────────────┐                     ┌─────────────────┐
+│    Kitchen      │                     │    Kitchen      │
+│                 │                     │                 │
+│     👨‍🍳         │                     │  👨‍🍳 👨‍🍳 👨‍🍳 👨‍🍳   │
+│                 │                     │                 │
+│  Makes 1 dish   │                     │  Makes 4 dishes │
+│  at a time      │                     │  at same time!  │
+└─────────────────┘                     └─────────────────┘
+
+Single chef must                        4 chefs can work on
+finish dish 1 before                    4 different dishes
+starting dish 2                         simultaneously
+```
+
+### How Cores Handle Multiple Tasks
+
+```
+4 TASKS arriving at CPU:
+
+┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
+│Task 1│ │Task 2│ │Task 3│ │Task 4│
+└──┬───┘ └──┬───┘ └──┬───┘ └──┬───┘
+   │        │        │        │
+   ▼        ▼        ▼        ▼
+┌──────────────────────────────────┐
+│         4-CORE CPU               │
+│  ┌────┐ ┌────┐ ┌────┐ ┌────┐    │
+│  │ C1 │ │ C2 │ │ C3 │ │ C4 │    │
+│  │Task│ │Task│ │Task│ │Task│    │
+│  │ 1  │ │ 2  │ │ 3  │ │ 4  │    │
+│  └────┘ └────┘ └────┘ └────┘    │
+└──────────────────────────────────┘
+         All 4 run TOGETHER!
+```
+
+### Key Points About Cores
+
+| Fact | Explanation |
+|------|-------------|
+| 1 Core = 1 task at a time | Each core can only execute ONE instruction at a time |
+| More cores = more parallel work | 8 cores can handle 8 tasks simultaneously |
+| Not all tasks can be parallelized | Some work must be done sequentially |
+| Clock speed vs cores | 1 fast core vs 4 slow cores depends on the task |
+
+---
+
+# SECTION D: STORAGE TYPES (RAM vs ROM vs SSD vs HDD)
+
+---
+
+## Part 5: Understanding Storage Types
+
+### The Storage Family
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    STORAGE FAMILY                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   VOLATILE (loses data when power off)                          │
+│   └── RAM (Random Access Memory) ← Working memory, FAST         │
+│                                                                  │
+│   NON-VOLATILE (keeps data when power off)                      │
+│   ├── ROM (Read Only Memory) ← Permanent, boot instructions     │
+│   ├── SSD (Solid State Drive) ← Fast storage, no moving parts   │
+│   └── HDD (Hard Disk Drive) ← Slow storage, spinning disks      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Detailed Comparison Table
+
+```
+┌───────────┬───────────┬────────────┬──────────────┬──────────────────┐
+│   TYPE    │   SPEED   │    SIZE    │   SURVIVES   │      ROLE        │
+│           │           │            │  POWER OFF?  │                  │
+├───────────┼───────────┼────────────┼──────────────┼──────────────────┤
+│   RAM     │  FASTEST  │  8-64 GB   │     NO ❌    │ Working memory   │
+│           │  100 ns   │  (small)   │   (volatile) │ (currently used) │
+├───────────┼───────────┼────────────┼──────────────┼──────────────────┤
+│   ROM     │   FAST    │  Few MB    │    YES ✅    │ Boot instructions│
+│           │           │  (tiny)    │ (permanent)  │ (BIOS/firmware)  │
+├───────────┼───────────┼────────────┼──────────────┼──────────────────┤
+│   SSD     │  MEDIUM   │ 256GB-4TB  │    YES ✅    │ Store files,     │
+│           │  50 μs    │  (large)   │              │ programs, OS     │
+├───────────┼───────────┼────────────┼──────────────┼──────────────────┤
+│   HDD     │   SLOW    │  1TB-10TB  │    YES ✅    │ Store files,     │
+│           │  10 ms    │  (huge)    │              │ cheaper storage  │
+└───────────┴───────────┴────────────┴──────────────┴──────────────────┘
+```
+
+### Kitchen Analogy for Storage Types
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    KITCHEN ANALOGY                               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   RAM = Your COUNTER/DESK                                       │
+│   ┌─────────────────────────────┐                               │
+│   │  Currently cooking items   │  Fast to grab, limited space  │
+│   │  Cleared when you leave    │  (power off = cleared)        │
+│   └─────────────────────────────┘                               │
+│                                                                  │
+│   ROM = Recipe CARD taped to wall                               │
+│   ┌─────────────────────────────┐                               │
+│   │  "How to start kitchen"    │  Permanent instructions       │
+│   │  Never changes             │  Can't be modified            │
+│   └─────────────────────────────┘                               │
+│                                                                  │
+│   SSD = NEARBY CABINET (organized)                              │
+│   ┌─────────────────────────────┐                               │
+│   │  Ingredients stored neatly │  Quick to access              │
+│   │  Stays when you leave      │  Medium capacity              │
+│   └─────────────────────────────┘                               │
+│                                                                  │
+│   HDD = BASEMENT STORAGE                                        │
+│   ┌─────────────────────────────┐                               │
+│   │  Bulk items, old stuff     │  Slow walk downstairs         │
+│   │  Huge space available      │  Cheap but far away           │
+│   └─────────────────────────────┘                               │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### SSD vs HDD Visual Comparison
+
+```
+HDD (Hard Disk Drive)                    SSD (Solid State Drive)
+┌─────────────────────┐                 ┌─────────────────────┐
+│                     │                 │                     │
+│    ┌─────────┐      │                 │  ┌─┬─┬─┬─┬─┬─┬─┐   │
+│    │ ~~~~~~~ │ ←Disk│                 │  │▓│▓│▓│▓│▓│▓│▓│   │
+│    │ Spinning│      │                 │  ├─┼─┼─┼─┼─┼─┼─┤   │
+│    │ ~~~~~~~ │      │                 │  │▓│▓│▓│▓│▓│▓│▓│   │
+│    └─────────┘      │                 │  ├─┼─┼─┼─┼─┼─┼─┤   │
+│         ↑           │                 │  │▓│▓│▓│▓│▓│▓│▓│   │
+│    Read/Write Arm   │                 │  └─┴─┴─┴─┴─┴─┴─┘   │
+│                     │                 │   Memory Chips      │
+│  MOVING PARTS! 🔊   │                 │   NO MOVING PARTS! │
+│  SLOW (seeks)       │                 │   FAST (instant)    │
+│  CHEAP per GB       │                 │   EXPENSIVE per GB  │
+│  Can break if drop  │                 │   Shock resistant   │
+└─────────────────────┘                 └─────────────────────┘
+```
+
+---
+
+# SECTION E: HOW THE CPU WORKS
+
+---
+
+## Part 6: The Fetch-Decode-Execute Cycle
 
 The CPU runs in an endless loop doing these 3 steps:
 
@@ -194,13 +453,17 @@ This happens BILLIONS of times per second. A 3 GHz CPU does this cycle 3 billion
 ```
 
 - **Control Unit:** Directs traffic, decides what to do
-- **ALU:** Does math and logic operations
-- **Registers:** Tiny storage slots (nanosecond access)
-- **Cache:** Small but very fast memory (discussed later)
+- **ALU:** Does math and logic operations (add, subtract, compare)
+- **Registers:** Tiny storage slots (nanosecond access) - THE FASTEST memory
+- **Cache:** Small but very fast memory (L1, L2, L3)
 
 ---
 
-## Part 4: The Memory Hierarchy
+# SECTION F: MEMORY HIERARCHY
+
+---
+
+## Part 7: The Memory Hierarchy
 
 Not all memory is equal. There's a tradeoff between speed and size:
 
@@ -237,7 +500,7 @@ Not all memory is equal. There's a tradeoff between speed and size:
                      LARGER
 ```
 
-### Speed Comparison (Approximate)
+### Speed Comparison Table
 
 | Level | Size | Access Time | Analogy |
 |-------|------|-------------|---------|
@@ -246,53 +509,178 @@ Not all memory is equal. There's a tradeoff between speed and size:
 | L2 Cache | 256 KB | 4 ns | In desk drawer |
 | L3 Cache | 8 MB | 20 ns | In filing cabinet next to you |
 | RAM | 16 GB | 100 ns | In the same room |
-| SSD | 500 GB | 50,000 ns | In the building |
-| HDD | 2 TB | 10,000,000 ns | In another city |
+| SSD | 500 GB | 50,000 ns (50 μs) | In the building |
+| HDD | 2 TB | 10,000,000 ns (10 ms) | In another city |
 
-**Why this matters for DevOps:**
-- Database performance often depends on how much fits in RAM
-- "Cache hit ratio" is critical - hitting cache vs going to disk
-- Understanding this helps you tune server performance
+### Human Time Analogy
 
----
+If 1 CPU cycle = 1 second of human time:
 
-## Part 5: What Makes Computers Fast or Slow?
+| Computer Time | Human Time Equivalent |
+|---------------|----------------------|
+| 1 CPU cycle | 1 second |
+| RAM access | 6 minutes |
+| SSD access | 2-6 days |
+| HDD access | 1-12 months |
 
-### Bottleneck Analysis
+**This is why RAM matters so much - going to disk is EXTREMELY slow by comparison!**
 
-A chain is only as strong as its weakest link. Computer performance is limited by its slowest component for that task.
+### What is Swap/Virtual Memory?
 
-**CPU-bound tasks:** (processor is the bottleneck)
-- Video encoding
-- Compression
-- Complex calculations
-- Code compilation
+When RAM fills up, the system uses a portion of the SSD/HDD as "fake RAM" called **swap space** or **virtual memory**.
 
-**Memory-bound tasks:** (RAM is the bottleneck)
-- Large datasets
-- Many concurrent applications
-- Virtual machines
-
-**I/O-bound tasks:** (storage/network is the bottleneck)
-- Database queries
-- File servers
-- Web servers serving files
-- API calls over network
-
-### Real DevOps Scenario
-
-Your web application is slow. How do you diagnose?
-
-1. Check CPU usage → If 100%, you're CPU-bound
-2. Check memory → If swapping, you need more RAM
-3. Check disk I/O → If high wait, storage is slow
-4. Check network → If latency high, network is the issue
-
-This is why understanding components matters!
+```
+┌────────────────────────────────────────────────────┐
+│                  WHEN RAM IS FULL                   │
+├────────────────────────────────────────────────────┤
+│                                                     │
+│   RAM (full): [████████████████████] 100%          │
+│                        │                            │
+│                        ▼                            │
+│   System moves less-used data to disk:             │
+│                                                     │
+│   SWAP on SSD/HDD: [██████░░░░░░░░░░]              │
+│                                                     │
+│   ⚠️ PROBLEM: Disk is 1000x slower than RAM!       │
+│   Result: Computer becomes VERY SLOW               │
+│                                                     │
+└────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Part 6: Common Beginner Mistakes
+# SECTION G: BOTTLENECK ANALYSIS
+
+---
+
+## Part 8: What Makes Computers Slow? (Bottleneck Analysis)
+
+### What is a Bottleneck?
+
+A **bottleneck** is the SLOWEST part that limits overall speed.
+
+```
+WATER FLOW ANALOGY:
+                                              
+    Wide Pipe      NARROW PIPE      Wide Pipe
+   ══════════►    ═══►═══►═══►    ══════════►
+                      ↑
+               This is the BOTTLENECK!
+               
+   No matter how wide the other pipes are,
+   water can only flow as fast as the narrowest point.
+```
+
+### Three Types of Bottlenecks
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   BOTTLENECK TYPES                               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. CPU-BOUND (Processor is the limit)                          │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                                                              ││
+│  │   CPU 🔥🔥🔥 [████████████████] 100%  ← BOTTLENECK!        ││
+│  │   RAM      [████░░░░░░░░░░░░]  30%                         ││
+│  │   DISK     [██░░░░░░░░░░░░░░]  15%                         ││
+│  │                                                              ││
+│  │   Examples: Video encoding, code compilation                ││
+│  │   Solution: Faster CPU, more cores                          ││
+│  └─────────────────────────────────────────────────────────────┘│
+│                                                                  │
+│  2. MEMORY-BOUND (RAM is the limit)                             │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                                                              ││
+│  │   CPU      [████░░░░░░░░░░░░]  25%                         ││
+│  │   RAM 🔥🔥🔥 [████████████████] 100%  ← BOTTLENECK!        ││
+│  │   DISK     [████████░░░░░░░░]  50%  (swapping!)            ││
+│  │                                                              ││
+│  │   Examples: Many apps open, large datasets                  ││
+│  │   Solution: Add more RAM                                    ││
+│  └─────────────────────────────────────────────────────────────┘│
+│                                                                  │
+│  3. I/O-BOUND (Disk or Network is the limit)                    │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                                                              ││
+│  │   CPU      [██░░░░░░░░░░░░░░]  10%   (waiting!)            ││
+│  │   RAM      [████░░░░░░░░░░░░]  30%                         ││
+│  │   DISK 🔥🔥🔥 [████████████████] 100%  ← BOTTLENECK!        ││
+│  │                                                              ││
+│  │   Examples: Database queries, file copying                  ││
+│  │   Solution: Faster SSD, better network                      ││
+│  └─────────────────────────────────────────────────────────────┘│
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Troubleshooting Decision Tree
+
+```
+"My system is slow... what's wrong?"
+
+                    ┌─────────────────┐
+                    │ Check CPU Usage │
+                    └────────┬────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+         CPU > 90%?                    CPU < 50%?
+              │                             │
+              ▼                             ▼
+     ┌────────────────┐           ┌─────────────────┐
+     │  CPU-BOUND     │           │ Check RAM Usage │
+     │                │           └────────┬────────┘
+     │ Fix: Faster    │                    │
+     │ CPU or more    │         ┌──────────┴──────────┐
+     │ cores          │         │                     │
+     └────────────────┘    RAM > 90%?            RAM < 70%?
+                               │                     │
+                               ▼                     ▼
+                    ┌────────────────┐    ┌─────────────────┐
+                    │ MEMORY-BOUND   │    │ Check Disk I/O  │
+                    │                │    └────────┬────────┘
+                    │ Fix: Add more  │             │
+                    │ RAM            │      Disk Wait High?
+                    └────────────────┘             │
+                                                   ▼
+                                        ┌────────────────┐
+                                        │   I/O-BOUND    │
+                                        │                │
+                                        │ Fix: SSD or    │
+                                        │ better network │
+                                        └────────────────┘
+```
+
+### Real-World Example
+
+```
+SCENARIO: Website loading slowly
+
+Step 1: CHECK EACH COMPONENT
+┌──────────────────────────────────────────────────────────────┐
+│                                                              │
+│   CPU Usage:  15%  ░░██░░░░░░░░░░░░  Not the problem        │
+│   RAM Usage:  40%  ░░░░████░░░░░░░░  Not the problem        │
+│   Disk Wait: 95%   ██████████████░░  🔥 THIS IS IT!         │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+
+DIAGNOSIS: I/O-Bound! Disk is slow.
+
+SOLUTIONS: 
+  - If using HDD → Switch to SSD
+  - Add caching (Redis)
+  - Optimize database queries
+```
+
+---
+
+# SECTION H: COMMON MISTAKES & DEVOPS APPLICATION
+
+---
+
+## Part 9: Common Beginner Mistakes
 
 ### Mistake 1: "More RAM = Faster Computer"
 **Reality:** Only if you're running out of RAM. Adding RAM to a CPU-bound task doesn't help.
@@ -306,9 +694,12 @@ This is why understanding components matters!
 ### Mistake 4: "Computers can do multiple things at once"
 **Reality:** Each CPU core can only do ONE thing at a time. It's just switching very fast (time-slicing).
 
+### Mistake 5: "Registers are the same as RAM"
+**Reality:** Registers are INSIDE the CPU and are the fastest memory (0.3ns). RAM is outside the CPU and much slower (100ns).
+
 ---
 
-## Part 7: DevOps Connection
+## Part 10: DevOps Connection
 
 Here's why this all matters for your DevOps career:
 
@@ -320,19 +711,67 @@ Here's why this all matters for your DevOps career:
 | I/O | Network policies, disk IOPS limits |
 | Cache | CDNs, Redis, application caching |
 | Bottlenecks | Performance troubleshooting |
+| Cores | Parallel job execution in CI/CD |
 
-When you see a Kubernetes pod spec like this:
+### Kubernetes Resource Limits Explained
+
 ```yaml
 resources:
   limits:
-    cpu: "2"
-    memory: "4Gi"
+    cpu: "2"        # Maximum 2 CPU cores
+    memory: "4Gi"   # Maximum 4 Gibibytes of RAM
   requests:
-    cpu: "500m"
-    memory: "1Gi"
+    cpu: "500m"     # Requests 0.5 cores (guaranteed minimum)
+    memory: "1Gi"   # Requests 1 Gibibyte of RAM
 ```
 
-You now understand EXACTLY what those limits control!
+**What happens when limits are exceeded:**
+- **Memory exceeds limit:** Container is KILLED (OOM - Out of Memory)
+- **CPU exceeds limit:** Container is THROTTLED (slowed down, not killed)
+
+---
+
+# SECTION I: QUICK REFERENCE
+
+---
+
+## Quick Reference Card
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     QUICK REFERENCE                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  UNITS:                                                         │
+│  • GHz = Billion cycles/second (CPU speed)                      │
+│  • MB/GB = Storage size (Mega/Giga bytes)                       │
+│  • ms/μs/ns = Time (milli/micro/nano seconds)                   │
+│  • 500m = 0.5 CPU cores (Kubernetes)                            │
+│                                                                  │
+│  CORES:                                                         │
+│  • 1 Core = 1 worker that does 1 task at a time                │
+│  • 4 Cores = 4 parallel tasks possible                         │
+│                                                                  │
+│  STORAGE (Fastest → Slowest):                                   │
+│  • Registers → Cache → RAM → SSD → HDD                          │
+│                                                                  │
+│  STORAGE TYPES:                                                 │
+│  • RAM = Fast, temporary, working memory (VOLATILE)             │
+│  • ROM = Permanent, boot instructions (NON-VOLATILE)            │
+│  • SSD = Fast permanent storage, no moving parts                │
+│  • HDD = Slow permanent storage, spinning disk                  │
+│                                                                  │
+│  BOTTLENECKS:                                                   │
+│  • CPU-bound = processor at 100%, needs faster CPU              │
+│  • Memory-bound = RAM full, needs more RAM                      │
+│  • I/O-bound = disk/network slow, needs faster storage          │
+│                                                                  │
+│  SWAP/VIRTUAL MEMORY:                                           │
+│  • When RAM is full, disk is used as fake RAM                   │
+│  • Very slow! Causes system to lag                              │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -340,9 +779,12 @@ You now understand EXACTLY what those limits control!
 
 1. **Computer = instruction follower** - It does what programs tell it
 2. **4 components: CPU, Memory, Storage, I/O** - Each has its role
-3. **Fetch-Decode-Execute** - The endless loop that runs everything
-4. **Memory hierarchy** - Speed vs. size tradeoff
-5. **Bottleneck analysis** - Find the slowest link
+3. **GHz = billion cycles/second** - CPU speed measurement
+4. **Cores = parallel workers** - More cores = more simultaneous tasks
+5. **RAM = fast volatile, Storage = slow permanent** - Know the difference
+6. **Registers are fastest, HDD is slowest** - Memory hierarchy matters
+7. **Fetch-Decode-Execute** - The endless loop that runs everything
+8. **Bottleneck analysis** - Find the slowest link to fix performance
 
 ---
 
@@ -351,10 +793,15 @@ You now understand EXACTLY what those limits control!
 Before moving on, make sure you can answer:
 
 1. What are the 4 core components of a computer?
-2. What is the fetch-decode-execute cycle?
-3. Why is RAM faster than SSD?
-4. What does "CPU-bound" mean?
-5. What happens when RAM fills up?
+2. What does 3 GHz mean?
+3. What is a CPU core?
+4. What's the difference between RAM and ROM?
+5. What's the difference between SSD and HDD?
+6. What is the fetch-decode-execute cycle?
+7. Why is RAM faster than SSD?
+8. What does "CPU-bound" mean?
+9. What happens when RAM fills up?
+10. What is the fastest type of memory?
 
 ---
 

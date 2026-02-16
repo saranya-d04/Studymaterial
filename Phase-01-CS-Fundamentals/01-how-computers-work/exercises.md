@@ -13,10 +13,10 @@ Match each scenario to the component that would be the bottleneck:
 | Scenario | Your Answer |
 |----------|-------------|
 | Video rendering taking hours | |
-| Application crashes with "Out of Memory" | |
-| Database queries are slow | |
-| Web app has high latency to users | |
-| Opening large files takes forever | |
+| Application crashes with "Out of Memory" | RAM|
+| Database queries are slow | Network I/O|
+| Web app has high latency to users |Network I/O |
+| Opening large files takes forever |RAM |
 
 **Options:** CPU, RAM, Storage (SSD/HDD), Network I/O
 
@@ -24,11 +24,11 @@ Match each scenario to the component that would be the bottleneck:
 
 ## Exercise 2: Fill in the Blanks
 
-1. The CPU runs in a cycle called ________-________-________
-2. RAM is ________ (volatile/non-volatile), meaning it loses data when power is off
-3. A 3 GHz processor can do approximately ________ cycles per second
-4. ________ is the fastest type of memory but has the smallest capacity
-5. When RAM is full, the system starts using ________ which is much slower
+1. The CPU runs in a cycle called fetch-decode excute cycle________-________-________
+2. RAM is ___volatile_____ (volatile/non-volatile), meaning it loses data when power is off
+3. A 3 GHz processor can do approximately ___3billion_____ cycles per second
+4. __ram______ is the fastest type of memory but has the smallest capacity
+5. When RAM is full, the system starts using __cpu bounce______ which is much slower
 
 ---
 
@@ -38,14 +38,14 @@ Mark each statement T (True) or F (False):
 
 | # | Statement | T/F |
 |---|-----------|-----|
-| 1 | More RAM always makes a computer faster | |
-| 2 | SSD is faster than RAM | |
-| 3 | A single CPU core can only execute one instruction at a time | |
-| 4 | Cache is larger but slower than RAM | |
-| 5 | The ALU performs math calculations | |
-| 6 | Storage is volatile memory | |
-| 7 | I/O stands for Input/Output | |
-| 8 | A CPU-bound task would benefit from adding more RAM | |
+| 1 | More RAM always makes a computer faster |f |
+| 2 | SSD is faster than RAM | f|
+| 3 | A single CPU core can only execute one instruction at a time | t|
+| 4 | Cache is larger but slower than RAM |t |
+| 5 | The ALU performs math calculations |t |
+| 6 | Storage is volatile memory |f |
+| 7 | I/O stands for Input/Output |t |
+| 8 | A CPU-bound task would benefit from adding more RAM |f |
 
 ---
 
@@ -60,11 +60,11 @@ Put these in order from FASTEST to SLOWEST:
 - [ ] L2 Cache
 
 Write your answer here:
-1. (fastest) __________
-2. __________
-3. __________
-4. __________
-5. (slowest) __________
+1. (fastest) Registers__________
+2. _l2cache_________
+3. _ram_________
+4. ___ssd_______
+5. (slowest) ___hhd_______
 
 ---
 
@@ -79,11 +79,11 @@ Write your answer here:
 
 1. Which component is the bottleneck?
    
-   Your answer: _______________
+   Your answer: cpu_______________
 
 2. Would adding more RAM help?
    
-   Your answer: _______________ Why? _______________
+   Your answer: ___yes____________ Why? ______need memory to speed _________
 
 3. What upgrade would most likely improve build times?
    
