@@ -291,8 +291,8 @@ Backend-DevOps-Course/
 ├── Phase-01-CS-Fundamentals/
 │   ├── 01-how-computers-work/
 │   │   ├── notes.md                   # Lesson notes
-│   │   ├── exercises.md               # Practice problems
-│   │   ├── test-answers.md            # Your test answers
+│   │   ├── exercises.md               # Practice questions (blank)
+│   │   ├── exercises-solutions.md     # Correct answers for self-check
 │   │   └── diagrams/                  # Visual aids
 │   ├── 02-binary-and-data/
 │   ├── 03-memory-and-storage/
@@ -301,11 +301,29 @@ Backend-DevOps-Course/
 │
 ├── Phase-02-Programming-Fundamentals/
 │   ├── 01-programming-logic/
+│   │   ├── notes.md
+│   │   ├── exercises.md
+│   │   ├── exercises-solutions.md
 │   ├── 02-variables-and-types/
+│   │   ├── notes.md
+│   │   ├── exercises.md
+│   │   ├── exercises-solutions.md
 │   ├── 03-control-flow/
+│   │   ├── notes.md
+│   │   ├── exercises.md
+│   │   ├── exercises-solutions.md
 │   ├── 04-functions/
+│   │   ├── notes.md
+│   │   ├── exercises.md
+│   │   ├── exercises-solutions.md
 │   ├── 05-data-structures/
+│   │   ├── notes.md
+│   │   ├── exercises.md
+│   │   ├── exercises-solutions.md
 │   ├── 06-algorithms-basics/
+│   │   ├── notes.md
+│   │   ├── exercises.md
+│   │   ├── exercises-solutions.md
 │   └── code-practice/                 # Your coding exercises
 │
 ├── Phase-03-Linux-Administration/

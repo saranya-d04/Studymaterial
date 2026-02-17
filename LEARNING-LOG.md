@@ -34,9 +34,9 @@ After each study session, add an entry:
 
 | Metric | Value |
 |--------|-------|
-| **Current Streak** | 🔥 1 day |
-| **Longest Streak** | 1 day |
-| **Total Study Days** | 1 |
+| **Current Streak** | 🔥 2 days |
+| **Longest Streak** | 2 days |
+| **Total Study Days** | 2 |
 | **Last Active** | Feb 17, 2026 |
 
 ### Monthly Calendar - February 2026
@@ -46,7 +46,7 @@ After each study session, add an entry:
 Wk1                       1   2
 Wk2  3   4   5   6   7   8   9
 Wk3 10  11  12  13  14  15  16
-Wk4 17✅ 18  19  20  21  22  23
+Wk4 16✅ 17✅ 18  19  20  21  22  23
 Wk5 24  25  26  27  28
 ```
 ✅ = Study day | ⚪ = Missed | 🔥 = Current streak
@@ -83,8 +83,59 @@ Wk5 24  25  26  27  28
 
 **Confidence Level:** ⭐⭐⭐⭐☆ (4/5)
 
----
 
 <!-- Add your entries below this line -->
+
+### Feb 16, 2026 - Phase 01 Completed
+**Duration:** ~2 hours
+**Topics Covered:**
+- How Computers Work (Completed + Tested ✅)
+- Binary and Data Representation (Completed + Tested ✅)
+- Memory and Storage (Completed + Tested ✅)
+- Operating Systems Basics (Completed + Tested ✅)
+
+**Key Learnings:**
+- Full computer fundamentals
+- OS basics, kernel, processes, threads
+- Memory hierarchy, swap, virtual memory
+
+**Struggles:**
+- OS concepts (kernel vs user space)
+- Memory limits in containers
+
+**Tomorrow's Plan:**
+- Start Programming Fundamentals (Phase 02)
+
+**Confidence Level:** ⭐⭐⭐⭐⭐ (5/5)
+
+---
+
+### Feb 17, 2026 - Phase 02 - Programming Fundamentals
+**Duration:** ~2 hours
+**Topics Covered:**
+- Programming Logic
+- Variables and Data Types
+- Control Flow
+- Functions and Modularity
+- Data Structures
+- Algorithms Basics
+- Error Handling
+- Object-Oriented Programming
+
+**Key Learnings:**
+- Algorithm design, flowcharts, pseudocode
+- Data types, scope, control flow
+- Functions, modularity, OOP basics
+
+**Struggles:**
+- OOP concepts (inheritance, polymorphism)
+- Debugging and error handling
+
+**Tomorrow's Plan:**
+- Start Linux & System Administration (Phase 03)
+
+**Confidence Level:** ⭐⭐⭐⭐☆ (4/5)
+
+---
 
 
