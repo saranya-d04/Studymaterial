@@ -12,11 +12,11 @@ Match each scenario to the component that would be the bottleneck:
 
 | Scenario | Your Answer |
 |----------|-------------|
-| Video rendering taking hours | |
+| Video rendering taking hours | CPU bounce|
 | Application crashes with "Out of Memory" | RAM|
-| Database queries are slow | Network I/O|
+| Database queries are slow | Storage (SSD/HDD)|
 | Web app has high latency to users |Network I/O |
-| Opening large files takes forever |RAM |
+| Opening large files takes forever |Storage (SSD/HDD)M |
 
 **Options:** CPU, RAM, Storage (SSD/HDD), Network I/O
 
@@ -27,8 +27,8 @@ Match each scenario to the component that would be the bottleneck:
 1. The CPU runs in a cycle called fetch-decode excute cycle________-________-________
 2. RAM is ___volatile_____ (volatile/non-volatile), meaning it loses data when power is off
 3. A 3 GHz processor can do approximately ___3billion_____ cycles per second
-4. __ram______ is the fastest type of memory but has the smallest capacity
-5. When RAM is full, the system starts using __cpu bounce______ which is much slower
+4. **REGISTERS** (not RAM!) is the fastest type of memory but has the smallest capacity
+5. When RAM is full, the system starts using __swap and virtuall memory______ which is much slower
 
 ---
 
@@ -41,7 +41,7 @@ Mark each statement T (True) or F (False):
 | 1 | More RAM always makes a computer faster |f |
 | 2 | SSD is faster than RAM | f|
 | 3 | A single CPU core can only execute one instruction at a time | t|
-| 4 | Cache is larger but slower than RAM |t |
+| 4 | Cache is larger but slower than RAM |**F** (CORRECTED: Cache is SMALLER and FASTER!) |
 | 5 | The ALU performs math calculations |t |
 | 6 | Storage is volatile memory |f |
 | 7 | I/O stands for Input/Output |t |
@@ -83,11 +83,11 @@ Write your answer here:
 
 2. Would adding more RAM help?
    
-   Your answer: ___yes____________ Why? ______need memory to speed _________
+   Your answer: ___yes____________ Why? ______cpu faster ,more cores_________
 
 3. What upgrade would most likely improve build times?
    
-   Your answer: _______________
+   Your answer: ____need faster cpu___________
 
 ---
 
@@ -105,15 +105,15 @@ resources:
 Answer:
 1. What does `500m` mean for CPU?
    
-   Your answer: _______________
+   Your answer: **0.5 CPU cores (500 millicores)** ← CORRECTED
 
 2. What does `512Mi` mean for memory?
    
-   Your answer: _______________
+   Your answer: **512 Mebibytes of RAM** ← CORRECTED
 
 3. What happens if the application tries to use more than 512Mi of RAM?
    
-   Your answer: _______________
+   Your answer: **Container gets OOM Killed (terminated)**
 
 ---
 
