@@ -1,8 +1,7 @@
-*{
-
-} Topic 01: Exercises - How Computers Work
+# Topic 01: Exercises - How Computers Work
 
 Complete these exercises to reinforce your understanding.
+Check your answers in `exercises-solutions.md` after completing.
 
 ---
 
@@ -12,11 +11,11 @@ Match each scenario to the component that would be the bottleneck:
 
 | Scenario | Your Answer |
 |----------|-------------|
-| Video rendering taking hours | CPU bounce|
-| Application crashes with "Out of Memory" | RAM|
-| Database queries are slow | Storage (SSD/HDD)|
-| Web app has high latency to users |Network I/O |
-| Opening large files takes forever |Storage (SSD/HDD)M |
+| Video rendering taking hours | |
+| Application crashes with "Out of Memory" | |
+| Database queries are slow | |
+| Web app has high latency to users | |
+| Opening large files takes forever | |
 
 **Options:** CPU, RAM, Storage (SSD/HDD), Network I/O
 
@@ -24,11 +23,11 @@ Match each scenario to the component that would be the bottleneck:
 
 ## Exercise 2: Fill in the Blanks
 
-1. The CPU runs in a cycle called fetch-decode excute cycle________-________-________
-2. RAM is ___volatile_____ (volatile/non-volatile), meaning it loses data when power is off
-3. A 3 GHz processor can do approximately ___3billion_____ cycles per second
-4. **REGISTERS** (not RAM!) is the fastest type of memory but has the smallest capacity
-5. When RAM is full, the system starts using __swap and virtuall memory______ which is much slower
+1. The CPU runs in a cycle called ________-________-________
+2. RAM is ________ (volatile/non-volatile), meaning it loses data when power is off
+3. A 3 GHz processor can do approximately ________ cycles per second
+4. ________ is the fastest type of memory but has the smallest capacity
+5. When RAM is full, the system starts using ________ which is much slower
 
 ---
 
@@ -38,14 +37,14 @@ Mark each statement T (True) or F (False):
 
 | # | Statement | T/F |
 |---|-----------|-----|
-| 1 | More RAM always makes a computer faster |f |
-| 2 | SSD is faster than RAM | f|
-| 3 | A single CPU core can only execute one instruction at a time | t|
-| 4 | Cache is larger but slower than RAM |**F** (CORRECTED: Cache is SMALLER and FASTER!) |
-| 5 | The ALU performs math calculations |t |
-| 6 | Storage is volatile memory |f |
-| 7 | I/O stands for Input/Output |t |
-| 8 | A CPU-bound task would benefit from adding more RAM |f |
+| 1 | More RAM always makes a computer faster | |
+| 2 | SSD is faster than RAM | |
+| 3 | A single CPU core can only execute one instruction at a time | |
+| 4 | Cache is larger but slower than RAM | |
+| 5 | The ALU performs math calculations | |
+| 6 | Storage is volatile memory | |
+| 7 | I/O stands for Input/Output | |
+| 8 | A CPU-bound task would benefit from adding more RAM | |
 
 ---
 
@@ -60,11 +59,11 @@ Put these in order from FASTEST to SLOWEST:
 - [ ] L2 Cache
 
 Write your answer here:
-1. (fastest) Registers__________
-2. _l2cache_________
-3. _ram_________
-4. ___ssd_______
-5. (slowest) ___hhd_______
+1. (fastest) __________
+2. __________
+3. __________
+4. __________
+5. (slowest) __________
 
 ---
 
@@ -79,15 +78,15 @@ Write your answer here:
 
 1. Which component is the bottleneck?
    
-   Your answer: cpu_______________
+   Your answer: __________
 
 2. Would adding more RAM help?
    
-   Your answer: ___yes____________ Why? ______cpu faster ,more cores_________
+   Your answer: __________ Why? __________
 
 3. What upgrade would most likely improve build times?
    
-   Your answer: ____need faster cpu___________
+   Your answer: __________
 
 ---
 
@@ -105,33 +104,33 @@ resources:
 Answer:
 1. What does `500m` mean for CPU?
    
-   Your answer: **0.5 CPU cores (500 millicores)** ← CORRECTED
+   Your answer: __________
 
 2. What does `512Mi` mean for memory?
    
-   Your answer: **512 Mebibytes of RAM** ← CORRECTED
+   Your answer: __________
 
 3. What happens if the application tries to use more than 512Mi of RAM?
    
-   Your answer: **Container gets OOM Killed (terminated)**
+   Your answer: __________
 
 ---
 
 ## Exercise 7: Explain Like I'm Five (ELI5)
 
-Write a simple explanation (2-3 sentences) for each concept as if explaining to someone with no tech background:
+Write a simple explanation (2-3 sentences) for each concept:
 
 1. **What does the CPU do?**
    
-   Your explanation:
+   Your explanation: __________
 
 2. **What's the difference between RAM and a hard drive?**
    
-   Your explanation:
+   Your explanation: __________
 
 3. **Why does a computer slow down when running many programs?**
    
-   Your explanation:
+   Your explanation: __________
 
 ---
 
@@ -143,19 +142,21 @@ On paper (or using a drawing tool), draw:
 2. Show how data flows between components
 3. Label each component with one key characteristic
 
-*Note: This is for your own practice. Visual learning reinforces concepts.*
-
 ---
 
 ## Bonus Challenge
 
-Research and answer:
-
 1. What is "virtual memory" and how does it relate to RAM and storage?
+
+   Your answer: __________
 
 2. What is "cache hit ratio" and why do DevOps engineers care about it?
 
+   Your answer: __________
+
 3. Why do servers often have multiple CPUs with many cores?
+
+   Your answer: __________
 
 ---
 
@@ -171,8 +172,6 @@ After completing exercises, rate your understanding:
 | Memory hierarchy | |
 | Bottleneck analysis | |
 
-If any rating is below 3, re-read that section of the notes.
-
 ---
 
-*Complete the exercises, then request the test from your instructor.*
+*After completing, check `exercises-solutions.md` for correct answers.*

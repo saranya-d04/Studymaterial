@@ -1,6 +1,7 @@
 # Topic 02: Exercises - Binary and Data Representation
 
 Complete these exercises to reinforce your understanding.
+Check your answers in `exercises-solutions.md` after completing.
 
 ---
 
@@ -10,11 +11,11 @@ Convert these binary numbers to decimal:
 
 | Binary | Your Answer | Work Space |
 |--------|-------------|------------|
-| 1010 | 10| |
-| 1111 |15 | |
-| 10101 |21 | |
-| 11001100 |2 04|128+64+12|
-| 10000001 |129 | |
+| 1010 | | |
+| 1111 | | |
+| 10101 | | |
+| 11001100 | | |
+| 10000001 | | |
 
 ---
 
@@ -24,11 +25,11 @@ Convert these decimal numbers to binary:
 
 | Decimal | Your Answer | Work Space |
 |---------|-------------|------------|
-| 7 | 0111| |
-| 25 |11001 | |
-| 42 |1010100 | |
-| 100 |1100100 | |
-| 255 | 100001111| |
+| 7 | | |
+| 25 | | |
+| 42 | | |
+| 100 | | |
+| 255 | | |
 
 ---
 
@@ -38,28 +39,28 @@ Convert these decimal numbers to binary:
 
 | Binary | Hex |
 |--------|-----|
-| 1111 | F|
-| 10101010 | AA|
-| 11001111 |CF |
-| 00001111 |0F |
+| 1111 | |
+| 10101010 | |
+| 11001111 | |
+| 00001111 | |
 
 ### Part B: Hex to Binary
 
 | Hex | Binary |
 |-----|--------|
-| A |1010 |
-| 3F |00111111 |
-| C8 | 11001000|
-| FF | 11111111|
+| A | |
+| 3F | |
+| C8 | |
+| FF | |
 
 ### Part C: Hex to Decimal
 
 | Hex | Decimal |
 |-----|---------|
-| 10 |16 |
-| 2A | 42|
-| FF | 255|
-| 100 | 256|
+| 10 | |
+| 2A | |
+| FF | |
+| 100 | |
 
 ---
 
@@ -67,23 +68,23 @@ Convert these decimal numbers to binary:
 
 1. How many bits in 3 bytes?
    
-   Your answer: __24bits__________
+   Your answer: __________
 
 2. How many different values can 4 bits represent?
    
-   Your answer: ____1024 ,________
+   Your answer: __________
 
 3. A file is 2 KiB. How many bytes is that exactly?
    
-   Your answer: _____2 billion_______
+   Your answer: __________
 
 4. An IPv4 address uses how many bits?
    
-   Your answer: ___34_________
+   Your answer: __________
 
 5. What's the maximum port number and why?
    
-   Your answer: ____https is a maximum posrt 443________
+   Your answer: __________
 
 ---
 
@@ -91,26 +92,25 @@ Convert these decimal numbers to binary:
 
 1. What is the ASCII decimal value for 'A'?
    
-   Your answer: ______65______
+   Your answer: __________
 
 2. What is the ASCII decimal value for 'a'?
    
-   Your answer: ______97______
+   Your answer: __________
 
 3. What is the difference between 'A' and 'a' in ASCII codes?
    
-   Your answer: ___A___the decimal number is 65 for A then decimal number is 97 for small a______
+   Your answer: __________
 
 4. The word "OK" stored in hexadecimal would be:
    
-   Your answer: _____4F 4B
-_______
+   Your answer: __________
    
    (Hint: O=79, K=75 in decimal)
 
 5. Why can't ASCII store Chinese characters?
    
-   Your answer: _____the AscII store only the universal char the other alt UTF-8_______
+   Your answer: __________
 
 ---
 
@@ -118,19 +118,19 @@ _______
 
 1. How many bytes does UTF-8 use to store the letter 'A'?
    
-   Your answer: ____A is a ASCII charater UTF-8 stores asscii in 1 byte________
+   Your answer: __________
 
 2. How many bytes does UTF-8 use to store a Chinese character?
    
-   Your answer: ____it is a unicode range that requires 3 bytes in 3 byte
+   Your answer: __________
 
 3. How many bytes does UTF-8 use to store an emoji 😀?
    
-   Your answer: ____________
-4byte
+   Your answer: __________
+
 4. In a MySQL database, why should you use `utf8mb4` instead of `utf8`?
    
-   Your answer: ____________
+   Your answer: __________
 
 ---
 
@@ -140,21 +140,21 @@ Using 8-bit two's complement, answer:
 
 1. What is the binary representation of -1?
    
-   Your answer: ____11111111________
+   Your answer: __________
    
    Work:
 
 2. What is the binary representation of -128?
    
-   Your answer: ____10000000________
+   Your answer: __________
 
 3. In 8-bit signed numbers, what is the range (min to max)?
    
-   Your answer: _____-128 to +127 _______
+   Your answer: __________
 
 4. What happens if you add 1 to 127 in 8-bit signed arithmetic?
    
-   Your answer: ____________ Why? ____________
+   Your answer: __________ Why? __________
 
 ---
 
@@ -166,11 +166,11 @@ You need to store the password "admin123" as a Kubernetes secret.
 
 1. Why does Kubernetes require Base64 encoding for secrets?
    
-   Your answer: __kubernetes store secrets as text in json,yaml so base64 ensures safe __________
+   Your answer: __________
 
 2. If "admin123" in Base64 is `YWRtaW4xMjM=`, what does this mean when someone says "Kubernetes secrets are not encrypted"?
    
-   Your answer: _____It means Base64 is encoding, not encryption — anyone can decode it easily._______
+   Your answer: __________
 
 ### Scenario B: IP Subnetting
 
@@ -180,27 +180,23 @@ Given:
 
 1. Convert the last octet of the IP (50) to binary:
    
-   Your answer: _____00110010
-_______
+   Your answer: __________
 
 2. What is the network address? (No need to calculate, just explain what operation is used)
    
-   Your answer: ____Bitwise AND between IP and subnet mask
-________
+   Your answer: __________
 
 ### Scenario C: File Permissions
 
 1. What does `chmod 755` mean in binary?
    
-   Owner: __111_  ___  ___ (rwx)
-   Group: ___  101___  ___ (rwx)
-   Other: ___  ___101  ___ (rwx)
+   Owner: ___  ___  ___ (rwx)
+   Group: ___  ___  ___ (rwx)
+   Other: ___  ___  ___ (rwx)
 
 2. What permissions does `chmod 644` give?
    
-   Your answer: ___Owner → read + write
-Group → read only
-Other → read only_________
+   Your answer: __________
 
 ---
 
@@ -218,11 +214,11 @@ else:
 
 1. Why does this code print "Price is WRONG!"?
    
-   Your answer: ____because it has a floating number________
+   Your answer: __________
 
 2. How would you fix this for a real e-commerce application?
    
-   Your answer: ______do not use decimal for the money calculation______
+   Your answer: __________
 
 ---
 
@@ -230,14 +226,14 @@ else:
 
 | # | Statement | T/F |
 |---|-----------|-----|
-| 1 | 1 KB always equals 1024 bytes | f|
-| 2 | Hexadecimal F equals decimal 16 | f|
-| 3 | ASCII is a subset of UTF-8 |t |
-| 4 | Every file on a computer is stored as binary |t |
-| 5 | A 32-bit integer can store any whole number |t |
-| 6 | Two's complement uses the leftmost bit as the sign |t |
-| 7 | UTF-8 always uses 4 bytes per character | f|
-| 8 | Port numbers can go up to 65535 | f|
+| 1 | 1 KB always equals 1024 bytes | |
+| 2 | Hexadecimal F equals decimal 16 | |
+| 3 | ASCII is a subset of UTF-8 | |
+| 4 | Every file on a computer is stored as binary | |
+| 5 | A 32-bit integer can store any whole number | |
+| 6 | Two's complement uses the leftmost bit as the sign | |
+| 7 | UTF-8 always uses 4 bytes per character | |
+| 8 | Port numbers can go up to 65535 | |
 
 ---
 
@@ -247,16 +243,16 @@ Complete without a calculator (memorize these!):
 
 | Power | Value |
 |-------|-------|
-| 2⁰ |1 |
-| 2¹ | 2|
-| 2² | 4|
-| 2³ | 8|
-| 2⁴ | 16|
-| 2⁵ | 32|
-| 2⁶ | 64|
-| 2⁷ |128 |
-| 2⁸ |256 |
-| 2¹⁰ | 1024|
+| 2⁰ | |
+| 2¹ | |
+| 2² | |
+| 2³ | |
+| 2⁴ | |
+| 2⁵ | |
+| 2⁶ | |
+| 2⁷ | |
+| 2⁸ | |
+| 2¹⁰ | |
 
 ---
 
@@ -264,19 +260,19 @@ Complete without a calculator (memorize these!):
 
 1. What color is #FF0000?
    
-   Your answer: ___red_________
+   Your answer: __________
 
 2. What color is #00FF00?
    
-   Your answer: _____green_______
+   Your answer: __________
 
 3. What hex code would give you yellow? (Hint: Red + Green)
    
-   Your answer: _____#FFFFF00_______
+   Your answer: __________
 
 4. How many possible colors can be represented with 24-bit RGB?
    
-   Your answer: _____RBG_______
+   Your answer: __________
 
 ---
 
@@ -286,15 +282,15 @@ Complete without a calculator (memorize these!):
    
    Calculation:
    
-   Answer: ____________
+   Answer: __________
 
 2. Why is the ASCII code for '0' (digit zero) not 0?
    
-   Your answer: ____________
+   Your answer: __________
 
-3. Research: What is "endianness" and why does it matter when transferring binary data between systems?
+3. What is "endianness" and why does it matter when transferring binary data between systems?
    
-   Your answer: ____________
+   Your answer: __________
 
 ---
 
@@ -311,8 +307,6 @@ After completing exercises, rate your understanding:
 | Negative numbers (two's complement) | |
 | Real-world applications | |
 
-If any rating is below 3, re-read that section of the notes.
-
 ---
 
-*Complete the exercises, then request the test from your instructor.*
+*After completing, check `exercises-solutions.md` for correct answers.*
