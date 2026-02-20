@@ -1,3 +1,35 @@
+# Operating System Concepts: Visual Overview
+
+```mermaid
+flowchart TD
+		A[User Program] -->|System Call| B[Operating System]
+		B --> C[Process Management]
+		B --> D[Memory Management]
+		B --> E[File System]
+		B --> F[Device Management]
+		C --> G[Process Lifecycle]
+		G --> H[New]
+		G --> I[Ready]
+		G --> J[Running]
+		G --> K[Waiting]
+		G --> L[Terminated]
+		C --> M[Context Switch]
+		C --> N[Threads]
+		C --> O[Multitasking]
+		B --> P[Security & Access Control]
+    
+		subgraph Linux Commands
+			Q[ps/top/htop] 
+			R[kill/nice/renice]
+			S[pstree/pgrep/pkill]
+		end
+		Q --- C
+		R --- C
+		S --- C
+```
+
+---
+
 
 # Operating Systems and Processes: Deep, Simple Notes
 
